@@ -45,7 +45,11 @@ public class ThanhVienBUS {
     
     }
     
-    public ThanhVien Checkthanhvien(int matv) {
+    public ThanhVien CheckThanhVienVaoKhuHocTap(int matv) {
+        return thanhVienDAO.CheckThanhVienVaoKhuHocTap(matv);
+    }
+    
+    public boolean Checkthanhvien(int matv) {
         return thanhVienDAO.Checkthanhvien(matv);
     }
 

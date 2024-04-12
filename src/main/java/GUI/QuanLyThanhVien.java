@@ -33,6 +33,7 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
 
     ThanhVienBUS thanhVienBUS = new ThanhVienBUS();
     ThongTinSDBUS thongTinSdBUS = new ThongTinSDBUS();
+    ThietBiBUS thietBiBUS = new ThietBiBUS();
     List<ThongTinSD> listDatathongtin;
     /**
      * Creates new form QuanLyThanhVien
@@ -47,6 +48,7 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
 
         loadDanhSachThanhVien();
         loadThongTinSDTable();
+        loadDanhSachMuonTra();
     }
 
     public void loadDanhSachThanhVien() {
@@ -64,6 +66,36 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
             model.addRow(dataRow);
         }
         danhSachThanhVien.setModel(model);
+    }
+    
+    public void loadDanhSachMuonTra() {
+        DefaultTableModel model = (DefaultTableModel) tableThongTinSuDung.getModel();
+        model.setRowCount(0); // xóa table 
+
+        for (ThongTinSD thongTinMuonTra : thongTinSdBUS.layDanhSachMuonTra()) {
+
+            Object[] dataRow = new Object[5];
+            dataRow[0] = thongTinMuonTra.getMaTT();
+            dataRow[1] = thongTinMuonTra.getMaTV().getMaTV();
+            dataRow[2] = thongTinMuonTra.getMaTB().getMaTB();
+            dataRow[3] = thongTinMuonTra.getTGMuon();
+            dataRow[4] = thongTinMuonTra.getTGTra();
+            model.addRow(dataRow);
+        }
+        tableThongTinSuDung.setModel(model);
+    }
+     
+    public void loadThongTinSDTable() {
+        listDatathongtin = thongTinSdBUS.loadthongtinsd();
+        DefaultTableModel model = (DefaultTableModel) tblTTSD.getModel();
+        model.setRowCount(0);
+        ThanhVien tv;
+        for (ThongTinSD rowDatathongtin : listDatathongtin) {
+            tv = thanhVienBUS.CheckThanhVienVaoKhuHocTap(rowDatathongtin.getMaTV().getMaTV());
+            if (tv != null) {
+                model.addRow(new Object[]{rowDatathongtin.getMaTT(), tv.getMaTV(), tv.getHoTen(), tv.getKhoa(), tv.getNganh(), tv.getSDT(), rowDatathongtin.getTGVao()});
+            }
+        }
     }
 
     /**
@@ -109,6 +141,20 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
         TexMaTV = new javax.swing.JTextField();
         btnConfirm = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        jPanelMuonTra = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        txtMaTV = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        btnMuonThietBi = new javax.swing.JButton();
+        txtMaThietBiMuon = new javax.swing.JTextField();
+        jPanel10 = new javax.swing.JPanel();
+        btnTraThietBi = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        txtMaThietBiTra = new javax.swing.JTextField();
+        jPanel11 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableThongTinSuDung = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -451,6 +497,153 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Khu học tập", jPanel1);
 
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Mượn thiết bị"));
+
+        jLabel9.setText("Mã thành viên");
+
+        jLabel10.setText("Thiết bị");
+
+        btnMuonThietBi.setText("Mượn thiết bị");
+        btnMuonThietBi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMuonThietBiActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnMuonThietBi, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtMaTV, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel10)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtMaThietBiMuon, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtMaTV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMaThietBiMuon, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel9))
+                .addGap(18, 18, 18)
+                .addComponent(btnMuonThietBi, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Trả thiết bị"));
+
+        btnTraThietBi.setText("Trả thiết bị");
+        btnTraThietBi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTraThietBiActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Thiết bị");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap(39, Short.MAX_VALUE)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtMaThietBiTra, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addComponent(btnTraThietBi, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(83, 83, 83))))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txtMaThietBiTra, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnTraThietBi, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
+
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin sử dụng"));
+
+        tableThongTinSuDung.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Mã thông tin", "Mã thành viên", "Mã thiết bị", "Thời gian mượn", "Thời gian trả"
+            }
+        ));
+        tableThongTinSuDung.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableThongTinSuDungMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tableThongTinSuDung);
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 893, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanelMuonTraLayout = new javax.swing.GroupLayout(jPanelMuonTra);
+        jPanelMuonTra.setLayout(jPanelMuonTraLayout);
+        jPanelMuonTraLayout.setHorizontalGroup(
+            jPanelMuonTraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelMuonTraLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelMuonTraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelMuonTraLayout.createSequentialGroup()
+                        .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanelMuonTraLayout.setVerticalGroup(
+            jPanelMuonTraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelMuonTraLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelMuonTraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(9, 9, 9)
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Mượn, trả thiết bị", jPanelMuonTra);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -625,7 +818,7 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
                 String strdate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(ldt);
                 Timestamp timestamp = Timestamp.valueOf(strdate);
                 ttsd.setTGVao(timestamp);
-                ThanhVien tvResult = thanhVienBUS.Checkthanhvien((int) maTV);
+                ThanhVien tvResult = thanhVienBUS.CheckThanhVienVaoKhuHocTap((int) maTV);
                 //                System.out.println("tvInput.getMaTV(): "+tvInput.getMaTV());
                 if (tvResult != null) {
                     if (!thanhVienBUS.checkViPham((int) maTV)) {
@@ -652,18 +845,70 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnConfirmActionPerformed
 
-    public void loadThongTinSDTable() {
-        listDatathongtin = thongTinSdBUS.loadthongtinsd();
-        DefaultTableModel model = (DefaultTableModel) tblTTSD.getModel();
-        model.setRowCount(0);
-        ThanhVien tv;
-        for (ThongTinSD rowDatathongtin : listDatathongtin) {
-            tv = thanhVienBUS.Checkthanhvien(rowDatathongtin.getMaTV().getMaTV());
-            if (tv != null) {
-                model.addRow(new Object[]{rowDatathongtin.getMaTT(), tv.getMaTV(), tv.getHoTen(), tv.getKhoa(), tv.getNganh(), tv.getSDT(), rowDatathongtin.getTGVao()});
-            }
+    private void btnMuonThietBiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMuonThietBiActionPerformed
+        // TODO add your handling code here:
+        if (txtMaTV.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã thành viên");
+            return;
         }
-    }
+
+        if (txtMaThietBiMuon.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã thiết bị");
+            return;
+        }
+
+        int maTV = Integer.parseInt(txtMaTV.getText());
+        if (!thanhVienBUS.Checkthanhvien(maTV)) {
+            JOptionPane.showMessageDialog(this, "Không phải là thành viên");
+            return;
+        }
+
+        int maTBMuon = Integer.parseInt(txtMaThietBiMuon.getText());
+        if (!thietBiBUS.CheckThietBi(maTBMuon)) {
+            JOptionPane.showMessageDialog(this, "Thiết bị không tồn tại");
+            return;
+        }
+
+        LocalDateTime ldt = LocalDateTime.now();
+        String strdate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(ldt);
+        Timestamp timestamp = Timestamp.valueOf(strdate);
+        System.out.println("Mã thành viên : " + maTV);
+        System.out.println("Mã thiết bị : " + maTBMuon);
+        System.out.println("Thời gian mượn : " + timestamp);
+        ThongTinSD ttsd = new ThongTinSD();
+        ttsd.setMaTT(thongTinSdBUS.layDanhSachMuonTra().size() + 2);
+
+        ThanhVien tvInput = new ThanhVien();
+        tvInput.setMaTV(maTV);
+        ThietBi tbInput = new ThietBi();
+        tbInput.setMaTB(maTBMuon);
+        ttsd.setMaTV(tvInput);
+        ttsd.setMaTB(tbInput);
+        ttsd.setTGMuon(timestamp);
+        if (thongTinSdBUS.insertThongTinSuDung(ttsd)) {
+            JOptionPane.showMessageDialog(this, "Mượn thiết bị thành công");
+            loadDanhSachMuonTra();
+        } else {
+            JOptionPane.showMessageDialog(this, "Mượn thiết bị thất bại");
+        }
+    }//GEN-LAST:event_btnMuonThietBiActionPerformed
+
+    private void btnTraThietBiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTraThietBiActionPerformed
+        // TODO add your handling code here:
+        int maTBTra = Integer.parseInt(txtMaThietBiTra.getText());
+        if(thongTinSdBUS.updateThoiGianTra(maTBTra)) {
+            JOptionPane.showMessageDialog(this, "Trả thiết bị thành công");
+            loadDanhSachMuonTra();
+        } else {
+            JOptionPane.showMessageDialog(this, "Trả thiết bị thất bại");
+        }
+
+    }//GEN-LAST:event_btnTraThietBiActionPerformed
+
+    private void tableThongTinSuDungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableThongTinSuDungMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableThongTinSuDungMouseClicked
+
     
     
     
@@ -742,13 +987,17 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
     private javax.swing.JTextField TexMaTV;
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnLamMoi;
+    private javax.swing.JButton btnMuonThietBi;
     private javax.swing.JButton btnThemThanhVien;
+    private javax.swing.JButton btnTraThietBi;
     private javax.swing.JButton btnXoaNhieuThanhVien;
     private javax.swing.JButton btnXoaThanhVien;
     private javax.swing.JTable danhSachThanhVien;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -756,20 +1005,30 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanelMuonTra;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable tableThongTinSuDung;
     private javax.swing.JTable tblTTSD;
     private javax.swing.JTextField txtHoTen;
     private javax.swing.JTextField txtKhoa;
+    private javax.swing.JTextField txtMaTV;
     private javax.swing.JTextField txtMaThanhVien;
+    private javax.swing.JTextField txtMaThietBiMuon;
+    private javax.swing.JTextField txtMaThietBiTra;
     private javax.swing.JTextField txtNamThanhLap;
     private javax.swing.JTextField txtNganh;
     private javax.swing.JTextField txtSoDienThoai;

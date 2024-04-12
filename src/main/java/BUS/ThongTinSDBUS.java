@@ -17,8 +17,21 @@ public class ThongTinSDBUS {
      public List loadthongtinsd() {
         return thongTinSdDAO.loadthongtinsd();
     }
+     
+     public List<ThongTinSD> layDanhSachMuonTra() {
+        return thongTinSdDAO.layDanhSachMuonTra();
+    }
 
     public boolean addthongtinsd(ThongTinSD ttsd) {
         return thongTinSdDAO.addthongtinsd(ttsd);
     }
+    
+    public boolean insertThongTinSuDung(ThongTinSD thongTinSuDung) {
+        return thongTinSdDAO.insertThongTinSuDung(thongTinSuDung);
+    }
+
+    public boolean updateThoiGianTra(int maThietBi) {
+        return thongTinSdDAO.updateThoiGianTra(maThietBi);
+    }
+    
 }

@@ -1,7 +1,11 @@
+GUI\QuanLyThanhVien$14.class
 GUI\QuanLyThanhVien$8.class
+DAO\ThietBiDAO.class
 DAO\studyAreaDAO.class
 DAO\ThanhVienDAO.class
+BUS\ThietBiBUS.class
 DAO\ThongTinSD.class
+GUI\QuanLyThanhVien$12.class
 GUI\QuanLyThanhVien$1.class
 DAO\HibernateUtil.class
 DAO\ThongTinSDDAO.class
@@ -14,6 +18,7 @@ GUI\QuanLyThanhVien$7.class
 GUI\QuanLyThanhVien$2.class
 DAO\ThanhVien.class
 GUI\QuanLyThanhVien$9.class
+GUI\QuanLyThanhVien$13.class
 DAO\ThietBi.class
 GUI\QuanLyThanhVien$5.class
 GUI\QuanLyThanhVien$6.class

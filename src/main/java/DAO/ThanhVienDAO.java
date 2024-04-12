@@ -252,7 +252,7 @@ public class ThanhVienDAO {
         ThanhVienDAO thanhVienDAO = new ThanhVienDAO();
     }
     
-    public ThanhVien Checkthanhvien(int matv) {
+    public ThanhVien CheckThanhVienVaoKhuHocTap(int matv) {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
@@ -268,6 +268,25 @@ public class ThanhVienDAO {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+    
+    public boolean Checkthanhvien(int matv) {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Query query = session.createQuery("from ThanhVien where MaTV = :matv");
+            query.setParameter("matv", matv);
+            List<ThanhVien> result = query.list();
+            session.getTransaction().commit();
+            if (!result.isEmpty()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

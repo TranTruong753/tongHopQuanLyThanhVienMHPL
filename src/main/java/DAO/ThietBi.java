@@ -18,4 +18,6 @@ public class ThietBi {
     private int MaTB;
     @Column
     private String TenTB;
+    @Column
+    private String MoTaTB;
 }
