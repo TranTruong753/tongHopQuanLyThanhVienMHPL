@@ -14,7 +14,9 @@ import java.util.List;
 public class ThongTinSDBUS {
 
     ThongTinSDDAO thongTinSdDAO = new ThongTinSDDAO();
-
+    public List loadthongtinsdMaTT() {
+        return thongTinSdDAO.loadthongtinsdMaTT();
+    }
     public List loadthongtinsd() {
         return thongTinSdDAO.loadthongtinsd();
     }

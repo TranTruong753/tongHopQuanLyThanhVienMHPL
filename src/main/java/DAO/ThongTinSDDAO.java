@@ -26,12 +26,25 @@ public class ThongTinSDDAO {
         session = sessionFactory.openSession();
         List<ThongTinSD> thongtinsd;
         session.beginTransaction();
-        thongtinsd = session.createQuery("from ThongTinSD ORDER BY MaTT desc", ThongTinSD.class).list();
+        thongtinsd = session.createQuery("from ThongTinSD where tgvao is not null and tgvao != '' and tgmuon is null and tgtra is null order by MaTT desc", ThongTinSD.class).list();
+        session.getTransaction().commit();
+        return thongtinsd;
+    }
+    public List loadthongtinsdMaTT() {
+        session = sessionFactory.openSession();
+        List<ThongTinSD> thongtinsd;
+        session.beginTransaction();
+        thongtinsd = session.createQuery("from ThongTinSD order by MaTT desc", ThongTinSD.class).list();
         session.getTransaction().commit();
         return thongtinsd;
     }
 
     public boolean addthongtinsd(ThongTinSD ttsd) {
+        System.out.println("Thông tin sử dụng đã được thêm vào:");
+        System.out.println("MaTT: " + ttsd.getMaTT());
+        System.out.println("TgVao: " + ttsd.getTGVao());
+        System.out.println("TgMuon: " + ttsd.getTGMuon());
+        System.out.println("TgTra: " + ttsd.getTGTra());
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();

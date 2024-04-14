@@ -813,7 +813,8 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
                 }
                 long maTV = Long.parseLong(maTVText);
                 ThongTinSD ttsd = new ThongTinSD();
-                ttsd.setMaTT(listDatathongtin.size() + 1);
+                List<ThongTinSD> listMaTT=thongTinSdBUS.loadthongtinsdMaTT();
+                ttsd.setMaTT(listMaTT.size() + 1);
                 ThanhVien tvInput = new ThanhVien();
                 tvInput.setMaTV((int) maTV);
                 LocalDateTime ldt = LocalDateTime.now();
