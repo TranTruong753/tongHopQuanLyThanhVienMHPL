@@ -12,20 +12,21 @@ import java.util.List;
  * @author Admin
  */
 public class ThongTinSDBUS {
+
     ThongTinSDDAO thongTinSdDAO = new ThongTinSDDAO();
-    
-     public List loadthongtinsd() {
+
+    public List loadthongtinsd() {
         return thongTinSdDAO.loadthongtinsd();
     }
-     
-     public List<ThongTinSD> layDanhSachMuonTra() {
+
+    public List<ThongTinSD> layDanhSachMuonTra() {
         return thongTinSdDAO.layDanhSachMuonTra();
     }
 
     public boolean addthongtinsd(ThongTinSD ttsd) {
         return thongTinSdDAO.addthongtinsd(ttsd);
     }
-    
+
     public boolean insertThongTinSuDung(ThongTinSD thongTinSuDung) {
         return thongTinSdDAO.insertThongTinSuDung(thongTinSuDung);
     }
@@ -33,5 +34,9 @@ public class ThongTinSDBUS {
     public boolean updateThoiGianTra(int maThietBi) {
         return thongTinSdDAO.updateThoiGianTra(maThietBi);
     }
-    
+
+    public ThongTinSD getLatestThongTinSuDung(int maThietBi) {
+        return thongTinSdDAO.getLatestThongTinSuDung(maThietBi);
+    }
+
 }

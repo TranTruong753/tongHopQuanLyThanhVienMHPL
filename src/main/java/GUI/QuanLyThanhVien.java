@@ -73,7 +73,9 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
         model.setRowCount(0); // xóa table 
 
         for (ThongTinSD thongTinMuonTra : thongTinSdBUS.layDanhSachMuonTra()) {
-
+            if(thongTinMuonTra.getMaTB() == null) {
+                continue;
+            }
             Object[] dataRow = new Object[5];
             dataRow[0] = thongTinMuonTra.getMaTT();
             dataRow[1] = thongTinMuonTra.getMaTV().getMaTV();
@@ -845,30 +847,41 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnConfirmActionPerformed
 
+    // xử lý sự kiện nút mượn thiết bị
     private void btnMuonThietBiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMuonThietBiActionPerformed
         // TODO add your handling code here:
+        // trường hợp bỏ trống mã thành viên
         if (txtMaTV.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mã thành viên");
             return;
         }
 
+        // trường hợp bỏ trống mã thiết bị
         if (txtMaThietBiMuon.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mã thiết bị");
             return;
         }
 
+        // trường hợp không phải là thành viên
         int maTV = Integer.parseInt(txtMaTV.getText());
         if (!thanhVienBUS.Checkthanhvien(maTV)) {
             JOptionPane.showMessageDialog(this, "Không phải là thành viên");
             return;
         }
 
+        // trường hợp thiết bị không tồn tại
         int maTBMuon = Integer.parseInt(txtMaThietBiMuon.getText());
         if (!thietBiBUS.CheckThietBi(maTBMuon)) {
             JOptionPane.showMessageDialog(this, "Thiết bị không tồn tại");
             return;
         }
-
+        
+        if(thongTinSdBUS.getLatestThongTinSuDung(maTBMuon) != null) {
+            JOptionPane.showMessageDialog(this, "Thiết bị hiện tại đang có người mượn");
+            return;
+        }
+        
+        
         LocalDateTime ldt = LocalDateTime.now();
         String strdate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(ldt);
         Timestamp timestamp = Timestamp.valueOf(strdate);
@@ -876,8 +889,7 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
         System.out.println("Mã thiết bị : " + maTBMuon);
         System.out.println("Thời gian mượn : " + timestamp);
         ThongTinSD ttsd = new ThongTinSD();
-        ttsd.setMaTT(thongTinSdBUS.layDanhSachMuonTra().size() + 2);
-
+        ttsd.setMaTT(thongTinSdBUS.layDanhSachMuonTra().size() + 1);
         ThanhVien tvInput = new ThanhVien();
         tvInput.setMaTV(maTV);
         ThietBi tbInput = new ThietBi();

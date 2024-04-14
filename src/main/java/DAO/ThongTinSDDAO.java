@@ -17,11 +17,11 @@ import org.hibernate.query.Query;
  * @author Admin
  */
 public class ThongTinSDDAO {
+
     Session session;
     SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-    
-    
-     public List loadthongtinsd() {
+
+    public List loadthongtinsd() {
         session = sessionFactory.openSession();
         List<ThongTinSD> thongtinsd;
         session.beginTransaction();
@@ -29,8 +29,7 @@ public class ThongTinSDDAO {
         session.getTransaction().commit();
         return thongtinsd;
     }
-    
-    
+
     public boolean addthongtinsd(ThongTinSD ttsd) {
         Session session = sessionFactory.openSession();
         try {
@@ -43,17 +42,18 @@ public class ThongTinSDDAO {
             return false;
         }
     }
-    
+
 //    code th quy
+    // lấy ra toàn bộ thông tin sử dụng
     public List<ThongTinSD> layDanhSachMuonTra() {
         Session session = sessionFactory.openSession();
         Transaction tx = null;
+        List<ThongTinSD> danhSachMuonTra = null;
         try {
             tx = session.beginTransaction();
-            String query = "FROM ThongTinSD WHERE matb IS NOT NULL";
-            List<ThongTinSD> danhSachMuonTra = session.createQuery(query, ThongTinSD.class).list();
+            String query = "FROM ThongTinSD ORDER BY TGMuon DESC";
+            danhSachMuonTra = session.createQuery(query, ThongTinSD.class).list();
             tx.commit();
-            return danhSachMuonTra;
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
@@ -62,7 +62,7 @@ public class ThongTinSDDAO {
         } finally {
             session.close();
         }
-        return null;
+        return danhSachMuonTra;
     }
 
     public boolean insertThongTinSuDung(ThongTinSD thongTinSuDung) {
@@ -137,6 +137,5 @@ public class ThongTinSDDAO {
             return null;
         }
     }
-    
-    
+
 }
