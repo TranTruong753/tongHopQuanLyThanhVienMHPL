@@ -4,7 +4,7 @@
  */
 package BUS;
 
-import DAO.ThanhVien;
+import BUS.ThanhVien;
 import DAO.ThanhVienDAO;
 import java.util.List;
 

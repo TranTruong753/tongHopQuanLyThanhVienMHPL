@@ -4,7 +4,7 @@
  */
 package BUS;
 
-import DAO.ThietBi;
+import BUS.ThietBi;
 import DAO.ThietBiDAO;
 import java.util.List;
 

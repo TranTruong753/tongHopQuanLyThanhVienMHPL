@@ -5,6 +5,7 @@
 package DAO;
 
 import java.util.List;
+import BUS.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

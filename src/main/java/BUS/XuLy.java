@@ -1,5 +1,6 @@
-package DAO;
+package BUS;
 
+import DAO.*;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,21 +13,19 @@ import lombok.Data;
 @Data
 @Entity
 @Table
-public class ThongTinSD {
+public class XuLy {
+
     @Id
-    private int MaTT;
+    private int MaXL;
+    @Column(name = "HinhThucXL")
+    private String htXL;
     @Column
-    private Date TGVao;
-    @Column
-    private Date TGMuon;
-    @Column
-    private Date TGTra;
+    private int SoTien;
+    @Column(name = "NgayXL")
+    private Date NgXl;
+    @Column(name ="trangthaixl")
+    private int TrangThaiXL;
     @ManyToOne
     @JoinColumn(name = "MaTV")
     private ThanhVien MaTV;
-    @ManyToOne
-    @JoinColumn(name = "MaTB")
-    private ThietBi MaTB;
-
 }
-

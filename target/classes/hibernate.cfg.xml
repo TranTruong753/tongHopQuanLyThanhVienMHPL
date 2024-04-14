@@ -20,10 +20,10 @@
         <!-- Show all executed SQL to console -->
         <property name="show_sql">false</property>
         <!-- Entity mapping -->
-        <mapping class="DAO.ThanhVien" />
-        <mapping class="DAO.ThongTinSD" />
-        <mapping class="DAO.ThietBi"/>
-        <mapping class="DAO.XuLy"/>
+        <mapping class="BUS.ThanhVien" />
+        <mapping class="BUS.ThongTinSD" />
+        <mapping class="BUS.ThietBi"/>
+        <mapping class="BUS.XuLy"/>
       
 <!--        <mapping resource = "department.hbm.xml"/>-->
     </session-factory>

@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import BUS.*;
 import DAO.HibernateUtil;
 import java.io.File;
 import java.io.FileInputStream;
@@ -294,7 +295,7 @@ public class ThanhVienDAO {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            Query query = session.createQuery("select count(*) from XuLy where MaTV.MaTV = :matv and trangthaix1=1");
+            Query query = session.createQuery("select count(*) from XuLy where MaTV.MaTV = :matv and trangthaixl=1");
             query.setParameter("matv", matv);
             Long count = (Long) query.uniqueResult();
             session.getTransaction().commit();
