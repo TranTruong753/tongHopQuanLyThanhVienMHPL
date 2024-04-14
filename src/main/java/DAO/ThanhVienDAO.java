@@ -294,7 +294,7 @@ public class ThanhVienDAO {
         Session session = sessionFactory.openSession();
         try {
             session.beginTransaction();
-            Query query = session.createQuery("select count(*) from XuLy where MaTV.MaTV = :matv");
+            Query query = session.createQuery("select count(*) from XuLy where MaTV.MaTV = :matv and trangthaix1=1");
             query.setParameter("matv", matv);
             Long count = (Long) query.uniqueResult();
             session.getTransaction().commit();

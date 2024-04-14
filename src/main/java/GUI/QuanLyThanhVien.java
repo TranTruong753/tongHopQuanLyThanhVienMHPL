@@ -900,6 +900,7 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
         if (thongTinSdBUS.insertThongTinSuDung(ttsd)) {
             JOptionPane.showMessageDialog(this, "Mượn thiết bị thành công");
             loadDanhSachMuonTra();
+            loadThongTinSDTable();
         } else {
             JOptionPane.showMessageDialog(this, "Mượn thiết bị thất bại");
         }

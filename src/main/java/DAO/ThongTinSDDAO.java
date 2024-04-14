@@ -25,7 +25,7 @@ public class ThongTinSDDAO {
         session = sessionFactory.openSession();
         List<ThongTinSD> thongtinsd;
         session.beginTransaction();
-        thongtinsd = session.createQuery("from ThongTinSD", ThongTinSD.class).list();
+        thongtinsd = session.createQuery("from ThongTinSD ORDER BY MaTT desc", ThongTinSD.class).list();
         session.getTransaction().commit();
         return thongtinsd;
     }
@@ -43,7 +43,7 @@ public class ThongTinSDDAO {
         }
     }
 
-//    code th quy
+// code th quy
     // lấy ra toàn bộ thông tin sử dụng
     public List<ThongTinSD> layDanhSachMuonTra() {
         Session session = sessionFactory.openSession();
