@@ -75,5 +75,11 @@
             <version>5.2.3</version> <!-- Điều chỉnh phiên bản phù hợp -->
         </dependency>
 
+        <dependency>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.4</version>
+        </dependency>
+
     </dependencies>
 </project>

@@ -24,7 +24,7 @@
         <mapping class="BUS.ThongTinSD" />
         <mapping class="BUS.ThietBi"/>
         <mapping class="BUS.XuLy"/>
-      
+        <mapping class="BUS.xuly2"/>
 <!--        <mapping resource = "department.hbm.xml"/>-->
     </session-factory>
 </hibernate-configuration>
