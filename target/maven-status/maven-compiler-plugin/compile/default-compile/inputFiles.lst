@@ -1,12 +1,13 @@
-C:\Users\Admin\Desktop\QuanLyThanhVien (1)\src\main\java\BUS\ThietBiBUS.java
-C:\Users\Admin\Desktop\QuanLyThanhVien (1)\src\main\java\DAO\HibernateUtil.java
-C:\Users\Admin\Desktop\QuanLyThanhVien (1)\src\main\java\BUS\ThietBi.java
-C:\Users\Admin\Desktop\QuanLyThanhVien (1)\src\main\java\DAO\ThongTinSDDAO.java
-C:\Users\Admin\Desktop\QuanLyThanhVien (1)\src\main\java\BUS\ThongTinSDBUS.java
-C:\Users\Admin\Desktop\QuanLyThanhVien (1)\src\main\java\BUS\ThongTinSD.java
-C:\Users\Admin\Desktop\QuanLyThanhVien (1)\src\main\java\BUS\ThanhVienBUS.java
-C:\Users\Admin\Desktop\QuanLyThanhVien (1)\src\main\java\DAO\ThietBiDAO.java
-C:\Users\Admin\Desktop\QuanLyThanhVien (1)\src\main\java\BUS\ThanhVien.java
-C:\Users\Admin\Desktop\QuanLyThanhVien (1)\src\main\java\BUS\XuLy.java
-C:\Users\Admin\Desktop\QuanLyThanhVien (1)\src\main\java\DAO\ThanhVienDAO.java
-C:\Users\Admin\Desktop\QuanLyThanhVien (1)\src\main\java\GUI\QuanLyThanhVien.java
+C:\Users\M S I\Documents\NetBeansProjects\tongHopQuanLyThanhVienMHPL\src\main\java\BUS\ThietBi.java
+C:\Users\M S I\Documents\NetBeansProjects\tongHopQuanLyThanhVienMHPL\src\main\java\BUS\XuLy.java
+C:\Users\M S I\Documents\NetBeansProjects\tongHopQuanLyThanhVienMHPL\src\main\java\GUI\TrangChu.java
+C:\Users\M S I\Documents\NetBeansProjects\tongHopQuanLyThanhVienMHPL\src\main\java\DAO\ThietBiDAO.java
+C:\Users\M S I\Documents\NetBeansProjects\tongHopQuanLyThanhVienMHPL\src\main\java\BUS\ThanhVienBUS.java
+C:\Users\M S I\Documents\NetBeansProjects\tongHopQuanLyThanhVienMHPL\src\main\java\GUI\QuanLyThanhVien.java
+C:\Users\M S I\Documents\NetBeansProjects\tongHopQuanLyThanhVienMHPL\src\main\java\DAO\ThanhVienDAO.java
+C:\Users\M S I\Documents\NetBeansProjects\tongHopQuanLyThanhVienMHPL\src\main\java\DAO\HibernateUtil.java
+C:\Users\M S I\Documents\NetBeansProjects\tongHopQuanLyThanhVienMHPL\src\main\java\BUS\ThietBiBUS.java
+C:\Users\M S I\Documents\NetBeansProjects\tongHopQuanLyThanhVienMHPL\src\main\java\BUS\ThanhVien.java
+C:\Users\M S I\Documents\NetBeansProjects\tongHopQuanLyThanhVienMHPL\src\main\java\BUS\ThongTinSDBUS.java
+C:\Users\M S I\Documents\NetBeansProjects\tongHopQuanLyThanhVienMHPL\src\main\java\DAO\ThongTinSDDAO.java
+C:\Users\M S I\Documents\NetBeansProjects\tongHopQuanLyThanhVienMHPL\src\main\java\BUS\ThongTinSD.java

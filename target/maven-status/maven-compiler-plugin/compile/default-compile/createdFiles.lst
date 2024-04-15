@@ -16,11 +16,14 @@ BUS\ThanhVienBUS.class
 BUS\ThietBi.class
 BUS\XuLy.class
 GUI\QuanLyThanhVien$7.class
+GUI\TrangChu$1.class
 GUI\QuanLyThanhVien$2.class
 GUI\QuanLyThanhVien$9.class
 GUI\QuanLyThanhVien$13.class
 BUS\ThanhVien.class
 GUI\QuanLyThanhVien$5.class
+GUI\TrangChu.class
+GUI\TrangChu$2.class
 GUI\QuanLyThanhVien$6.class
 GUI\QuanLyThanhVien$10.class
 GUI\QuanLyThanhVien$3.class
