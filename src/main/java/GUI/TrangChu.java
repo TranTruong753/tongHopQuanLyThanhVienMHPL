@@ -12,7 +12,7 @@ import javax.swing.UIManager;
  * @author M S I
  */
 public class TrangChu extends javax.swing.JFrame {
-
+    private xuliGUI xuliGUI;
     /**
      * Creates new form TrangChu
      */
@@ -53,6 +53,11 @@ public class TrangChu extends javax.swing.JFrame {
         jButton2.setText("THIẾT BỊ");
 
         jButton3.setText("VI PHẠM");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("THỐNG KÊ");
 
@@ -116,6 +121,12 @@ public class TrangChu extends javax.swing.JFrame {
         // TODO add your handling code here:
         new QuanLyThanhVien().setVisible(true);
     }//GEN-LAST:event_thanhVienBtnActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        new xuliGUI();
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
