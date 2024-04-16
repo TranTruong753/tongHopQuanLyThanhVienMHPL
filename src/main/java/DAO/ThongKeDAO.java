@@ -125,7 +125,7 @@ public class ThongKeDAO {
     }
     
     public List<Object[]> getAllViPhamDaXuLY(Session session) {
-        String hql = "SELECT xl.MaXL, xl.MaTV, tv.HoTen,tv.Khoa,xl.HinhThucXL,xl.SoTien, xl.NgayXL,xl.TrangThaiXL " +
+        String hql = "SELECT xl.MaXL, tv.MaTV, tv.HoTen,tv.Khoa,xl.htXL,xl.SoTien, xl.NgXl,xl.TrangThaiXL " +
                      "FROM XuLy xl " +
                      "INNER JOIN ThanhVien tv ON tv.MaTV = xl.MaTV " +
                      "WHERE xl.TrangThaiXL = 1" ;
@@ -134,18 +134,18 @@ public class ThongKeDAO {
     }
     
     public List<Object[]> getAllViPhamDaXuLYByDate(Session session, String date) {
-        String hql ="SELECT xl.MaXL, xl.MaTV, tv.HoTen, tv.Khoa, xl.HinhThucXL, xl.SoTien, xl.NgayXL, xl.TrangThaiXL\n" +
+        String hql ="SELECT xl.MaXL, tv.MaTV, tv.HoTen, tv.Khoa, xl.htXL, xl.SoTien, xl.NgXl, xl.TrangThaiXL\n" +
                     "FROM XuLy xl\n" +
                     "INNER JOIN ThanhVien tv ON tv.MaTV = xl.MaTV\n" +
                     "WHERE xl.TrangThaiXL = 1\n" +
-                    "AND DATE_FORMAT(xl.NgayXL, '%Y-%m-%d') LIKE :formattedDate ";
+                    "AND DATE_FORMAT(xl.NgXl, '%Y-%m-%d') LIKE :formattedDate ";
         Query<Object[]> query = session.createQuery(hql); 
         query.setParameter("formattedDate", "%" + date + "%");
         return query.getResultList();
     }
     
     public List<Object[]> getAllViPhamDangXuLY(Session session) {
-        String hql = "SELECT xl.MaXL, xl.MaTV, tv.HoTen,tv.Khoa,xl.HinhThucXL,xl.SoTien, xl.NgayXL,xl.TrangThaiXL " +
+        String hql = "SELECT xl.MaXL, tv.MaTV, tv.HoTen,tv.Khoa,xl.htXL,xl.SoTien, xl.NgXl,xl.TrangThaiXL " +
                      "FROM XuLy xl " +
                      "INNER JOIN ThanhVien tv ON tv.MaTV = xl.MaTV " +
                      "WHERE xl.TrangThaiXL = 0" ;
@@ -154,11 +154,11 @@ public class ThongKeDAO {
     }
     
     public List<Object[]> getAllViPhamDangXuLYByDate(Session session, String date) {
-        String hql ="SELECT xl.MaXL, xl.MaTV, tv.HoTen, tv.Khoa, xl.HinhThucXL, xl.SoTien, xl.NgayXL, xl.TrangThaiXL\n" +
+        String hql ="SELECT xl.MaXL, tv.MaTV, tv.HoTen, tv.Khoa, xl.htXL, xl.SoTien, xl.NgXl, xl.TrangThaiXL\n" +
                     "FROM XuLy xl\n" +
                     "INNER JOIN ThanhVien tv ON tv.MaTV = xl.MaTV\n" +
                     "WHERE xl.TrangThaiXL = 0\n" +
-                    "AND DATE_FORMAT(xl.NgayXL, '%Y-%m-%d') LIKE :formattedDate ";
+                    "AND DATE_FORMAT(xl.NgXl, '%Y-%m-%d') LIKE :formattedDate ";
         Query<Object[]> query = session.createQuery(hql); 
         query.setParameter("formattedDate", "%" + date + "%");
         return query.getResultList();
@@ -276,7 +276,7 @@ public class ThongKeDAO {
         String hql ="SELECT COUNT(xl.MaTV) " +
                     "FROM XuLy xl " +
                     "WHERE xl.TrangThaiXL = 1 " +
-                    "AND DATE_FORMAT(xl.NgayXL, '%Y-%m-%d') LIKE :formattedDate ";
+                    "AND DATE_FORMAT(xl.NgXl, '%Y-%m-%d') LIKE :formattedDate ";
         Query<Long> query = session.createQuery(hql, Long.class); 
         query.setParameter("formattedDate", "%" + date + "%");
         return query.getSingleResult();
@@ -298,7 +298,7 @@ public class ThongKeDAO {
                     "FROM XuLy xl " +
                     "INNER JOIN ThanhVien tv ON tv.MaTV = xl.MaTV " +
                     "WHERE xl.TrangThaiXL = 0 " +
-                    "AND DATE_FORMAT(xl.NgayXL, '%Y-%m-%d') LIKE :formattedDate ";
+                    "AND DATE_FORMAT(xl.NgXl, '%Y-%m-%d') LIKE :formattedDate ";
         Query<Long> query = session.createQuery(hql, Long.class); 
         query.setParameter("formattedDate", "%" + date + "%");
         return query.getSingleResult();
@@ -404,11 +404,11 @@ public class ThongKeDAO {
     
     
     public Object[] getClosestViPhamDaXuLY(Session session) {
-        String hql = "SELECT xl.MaTV, tv.HoTen, xl.HinhThucXL, xl.SoTien " +
+        String hql = "SELECT tv.MaTV, tv.HoTen, xl.htXL, xl.SoTien " +
                      "FROM XuLy xl " +
                      "INNER JOIN ThanhVien tv ON tv.MaTV = xl.MaTV " +
                      "WHERE xl.TrangThaiXL = 1 " + 
-                     "ORDER BY xl.NgayXL DESC";
+                     "ORDER BY xl.NgXl DESC";
         Query<Object[]> query = session.createQuery(hql); 
         query.setMaxResults(1); // Chỉ lấy một kết quả (vi phạm đã được xử lý gần nhất)
         return (Object[]) query.uniqueResult();
@@ -416,12 +416,12 @@ public class ThongKeDAO {
 
     
     public Object[] getClosestViPhamDaXuLYByDate(Session session, String date) {
-        String hql = "SELECT xl.MaTV, tv.HoTen, xl.HinhThucXL, xl.SoTien " +
+        String hql = "SELECT tv.MaTV, tv.HoTen, xl.htXL, xl.SoTien " +
                      "FROM XuLy xl " +
                      "INNER JOIN ThanhVien tv ON tv.MaTV = xl.MaTV " +
                      "WHERE xl.TrangThaiXL = 1 " +
-                     "AND DATE_FORMAT(xl.NgayXL, '%Y-%m-%d') LIKE :formattedDate " + // Thêm khoảng trắng ở đây
-                     "ORDER BY xl.NgayXL DESC";
+                     "AND DATE_FORMAT(xl.NgXl, '%Y-%m-%d') LIKE :formattedDate " + // Thêm khoảng trắng ở đây
+                     "ORDER BY xl.NgXl DESC";
         Query<Object[]> query = session.createQuery(hql); 
         query.setParameter("formattedDate", "%" + date + "%");
         query.setMaxResults(1); // Chỉ lấy một kết quả (vi phạm đã được xử lý gần nhất)
@@ -430,11 +430,11 @@ public class ThongKeDAO {
 
     
     public Object[] getClosestViPhamDangXuLY(Session session) {
-        String hql = "SELECT xl.MaXL, xl.MaTV, xl.HinhThucXL, xl.SoTien " +
+        String hql = "SELECT xl.MaXL, tv.MaTV, xl.htXL, xl.SoTien " +
                      "FROM XuLy xl " +
                      "INNER JOIN ThanhVien tv ON tv.MaTV = xl.MaTV " +
                      "WHERE xl.TrangThaiXL = 0 " +
-                     "ORDER BY xl.NgayXL DESC";
+                     "ORDER BY xl.NgXl DESC";
         Query<Object[]> query = session.createQuery(hql); 
         query.setMaxResults(1); // Chỉ lấy một kết quả (vi phạm đã được xử lý gần nhất)
         return (Object[]) query.uniqueResult();
@@ -443,12 +443,12 @@ public class ThongKeDAO {
 
     
     public Object[] getClosestViPhamDangXuLYByDate(Session session, String date) {
-        String hql = "SELECT xl.MaXL, xl.MaTV, xl.HinhThucXL, xl.SoTien " +
+        String hql = "SELECT xl.MaXL, tv.MaTV, xl.htXL, xl.SoTien " +
                      "FROM XuLy xl " +
                      "INNER JOIN ThanhVien tv ON tv.MaTV = xl.MaTV " +
                      "WHERE xl.TrangThaiXL = 0 " +
-                     "AND DATE_FORMAT(xl.NgayXL, '%Y-%m-%d') LIKE :formattedDate " +
-                     "ORDER BY xl.NgayXL DESC";
+                     "AND DATE_FORMAT(xl.NgXl, '%Y-%m-%d') LIKE :formattedDate " +
+                     "ORDER BY xl.NgXl DESC";
         Query<Object[]> query = session.createQuery(hql); 
         query.setParameter("formattedDate", "%" + date + "%");
         query.setMaxResults(1); // Chỉ lấy một kết quả (vi phạm đã được xử lý gần nhất)
@@ -612,7 +612,7 @@ public class ThongKeDAO {
         String hql = "SELECT tv.Khoa, COUNT(xl.MaTV) " +
                      "FROM XuLy xl " +
                      "INNER JOIN ThanhVien tv ON tv.MaTV = xl.MaTV " +
-                     "WHERE DATE_FORMAT(xl.NgayXL, '%Y-%m-%d') LIKE :formattedDate " +
+                     "WHERE DATE_FORMAT(xl.NgXl, '%Y-%m-%d') LIKE :formattedDate " +
                      "AND xl.TrangThaiXL = 1 " +
                      "GROUP BY tv.Khoa";
         Query<Object[]> query = session.createQuery(hql);
@@ -624,7 +624,7 @@ public class ThongKeDAO {
         String hql = "SELECT tv.Nganh, COUNT(xl.MaTV) " +
                      "FROM XuLy xl " +
                      "INNER JOIN ThanhVien tv ON tv.MaTV = xl.MaTV " +
-                     "WHERE DATE_FORMAT(xl.NgayXL, '%Y-%m-%d') LIKE :formattedDate " +
+                     "WHERE DATE_FORMAT(xl.NgXl, '%Y-%m-%d') LIKE :formattedDate " +
                      "AND xl.TrangThaiXL = 1 " +
                      "GROUP BY tv.Nganh";
         Query<Object[]> query = session.createQuery(hql);
@@ -656,7 +656,7 @@ public class ThongKeDAO {
         String hql = "SELECT tv.Khoa, COUNT(xl.MaTV) " +
                      "FROM XuLy xl " +
                      "INNER JOIN ThanhVien tv ON tv.MaTV = xl.MaTV " +
-                     "WHERE DATE_FORMAT(xl.NgayXL, '%Y-%m-%d') LIKE :formattedDate " +
+                     "WHERE DATE_FORMAT(xl.NgXl, '%Y-%m-%d') LIKE :formattedDate " +
                      "AND xl.TrangThaiXL = 0 " +
                      "GROUP BY tv.Khoa";
         Query<Object[]> query = session.createQuery(hql);
@@ -669,7 +669,7 @@ public class ThongKeDAO {
         String hql = "SELECT tv.Nganh, COUNT(xl.MaTV) " +
                      "FROM XuLy xl " +
                      "INNER JOIN ThanhVien tv ON tv.MaTV = xl.MaTV " +
-                     "WHERE DATE_FORMAT(xl.NgayXL, '%Y-%m-%d') LIKE :formattedDate " +
+                     "WHERE DATE_FORMAT(xl.NgXl, '%Y-%m-%d') LIKE :formattedDate " +
                      "AND xl.TrangThaiXL = 0 " +
                      "GROUP BY tv.Nganh";
         Query<Object[]> query = session.createQuery(hql);
@@ -681,7 +681,8 @@ public class ThongKeDAO {
         String hql = "SELECT SUM(SoTien) FROM XuLy WHERE SoTien IS NOT NULL AND TrangThaiXL = 1";
         Query<Long> query = session.createQuery(hql, Long.class);
         Long totalMoney = query.uniqueResult();
-        return totalMoney != null ? totalMoney.intValue() : 0; // Trả về tổng tiền, hoặc 0 nếu không có kết quả
+        return totalMoney != null ? totalMoney.intValue() : 0;
+
     }
 
 
