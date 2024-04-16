@@ -56,4 +56,13 @@ public class ThanhVienBUS {
     public boolean checkViPham(int matv) {
         return thanhVienDAO.checkViPham(matv);
     }
+    
+     public boolean kiemTraTrungId(String MaTV){
+         for (ThanhVien thanhVien : thanhVienDAO.layDanhSachThanhVien()) {
+             if((thanhVien.getMaTV()+"").equals(MaTV)){
+                 return false;
+             }
+        }
+         return true;     
+    }
 }
