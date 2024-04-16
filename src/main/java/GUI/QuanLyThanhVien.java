@@ -113,8 +113,8 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btnXoaThanhVien = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnNhapFileTv = new javax.swing.JButton();
+        btnSuaTv = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtMaThanhVien = new javax.swing.JTextField();
@@ -169,17 +169,17 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Nhập");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnNhapFileTv.setText("Nhập");
+        btnNhapFileTv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnNhapFileTvActionPerformed(evt);
             }
         });
 
-        jButton5.setText("Sửa");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnSuaTv.setText("Sửa");
+        btnSuaTv.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnSuaTvActionPerformed(evt);
             }
         });
 
@@ -189,11 +189,11 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSuaTv, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnXoaThanhVien, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnNhapFileTv, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -201,8 +201,8 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnXoaThanhVien, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnNhapFileTv, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSuaTv, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -743,7 +743,7 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
              Nganh = txtNganh.getText().trim();
              SDT = txtSoDienThoai.getText().trim();
              
-            if(kiemTraTrungId(maTV)){
+            if(thanhVienBUS.kiemTraTrungId(maTV)){
                     ketqua = thanhVienBUS.insertThanhVien(Integer.parseInt(maTV), HoTen, Khoa, Nganh, SDT);
                    if(ketqua){
                        loadDanhSachThanhVien();
@@ -760,9 +760,9 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnThemThanhVienActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-         String maTV,HoTen,Khoa,Nganh,SDT;
+    private void btnSuaTvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaTvActionPerformed
+
+        String maTV,HoTen,Khoa,Nganh,SDT;
         boolean ketqua; 
         if(kiemTraRong()) {
              maTV = txtMaThanhVien.getText().trim();
@@ -771,7 +771,7 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
              Nganh = txtNganh.getText().trim();
              SDT = txtSoDienThoai.getText().trim();
              
-            if(!kiemTraTrungId(maTV)){
+            if(!thanhVienBUS.kiemTraTrungId(maTV)){
                     ketqua = thanhVienBUS.updateThanhVien(Integer.parseInt(maTV), HoTen, Khoa, Nganh, SDT);
                    if(ketqua){
                        loadDanhSachThanhVien();
@@ -786,9 +786,9 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
         }else {
             JOptionPane.showMessageDialog(this, "Ô dữ liệu bị rỗng hoặc không hợp lệ!");      
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnSuaTvActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnNhapFileTvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapFileTvActionPerformed
         // TODO add your handling code here:
     boolean ketqua = thanhVienBUS.themDS();
     if(ketqua){
@@ -797,7 +797,7 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
     }else
         JOptionPane.showMessageDialog(null, "Thêm thất bại", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnNhapFileTvActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         try {
@@ -951,16 +951,16 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
         
         return check;
     }
-    
-    public boolean kiemTraTrungId(String MaTV){
-         for (ThanhVien thanhVien : thanhVienBUS.layDanhSachThanhVien()) {
-             if((thanhVien.getMaTV()+"").equals(MaTV)){
-                 return false;
-             }
-        }
-         return true;
-        
-    }
+//    
+//    public boolean kiemTraTrungId(String MaTV){
+//         for (ThanhVien thanhVien : thanhVienBUS.layDanhSachThanhVien()) {
+//             if((thanhVien.getMaTV()+"").equals(MaTV)){
+//                 return false;
+//             }
+//        }
+//         return true;
+//        
+//    }
     
     /**
      * @param args the command line arguments
@@ -1002,13 +1002,13 @@ public class QuanLyThanhVien extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnLamMoi;
     private javax.swing.JButton btnMuonThietBi;
+    private javax.swing.JButton btnNhapFileTv;
+    private javax.swing.JButton btnSuaTv;
     private javax.swing.JButton btnThemThanhVien;
     private javax.swing.JButton btnTraThietBi;
     private javax.swing.JButton btnXoaNhieuThanhVien;
     private javax.swing.JButton btnXoaThanhVien;
     private javax.swing.JTable danhSachThanhVien;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

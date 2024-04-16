@@ -37,7 +37,7 @@ public class ThanhVienDAO {
 
     Session session;
     SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-
+//    ThanhVienBUS tvBUS = new ThanhVienBUS();
     public List<ThanhVien> layDanhSachThanhVien() {
         Session session = sessionFactory.openSession();
         Transaction tx = null;
@@ -211,16 +211,8 @@ public class ThanhVienDAO {
                 String sdt = dataFormatter.formatCellValue(row.getCell(4));
                 
                 if(kiemTraTrungId(maTV)){
-                    insertThanhVien(maTVconver, hoTen, khoa, nganh, sdt);
-                 //   JOptionPane.showMessageDialog(null, "Thêm thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-                    
-                }
-//                else{
-//                    
-//                    updateThanhVien(maTVconver, hoTen, khoa, nganh, sdt);
-//                    JOptionPane.showMessageDialog(null, "cập nhật thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-//                }
-                    
+                    insertThanhVien(maTVconver, hoTen, khoa, nganh, sdt);                               
+                }                            
                 
             }
        
@@ -238,7 +230,7 @@ public class ThanhVienDAO {
         return check;
     }
      
-     public boolean kiemTraTrungId(String MaTV){
+    public boolean kiemTraTrungId(String MaTV){
          for (ThanhVien thanhVien : layDanhSachThanhVien()) {
              if((thanhVien.getMaTV()+"").equals(MaTV)){
                  return false;
