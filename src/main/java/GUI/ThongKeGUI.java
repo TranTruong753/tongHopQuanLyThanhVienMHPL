@@ -1340,11 +1340,15 @@ public class ThongKeGUI extends javax.swing.JFrame {
     private void radBtnMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radBtnMonthActionPerformed
         // TODO add your handling code here:
         PhuongAncbb.setSelectedIndex(0);
+        loadDataTable(getDate());
+        loadLabelSLThanhVien(getDate());
     }//GEN-LAST:event_radBtnMonthActionPerformed
 
     private void radBtnYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radBtnYearActionPerformed
         // TODO add your handling code here:
         PhuongAncbb.setSelectedIndex(0);
+        loadDataTable(getDate());
+        loadLabelSLThanhVien(getDate());
     }//GEN-LAST:event_radBtnYearActionPerformed
 
     private void dateChooseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateChooseMouseClicked
@@ -1462,11 +1466,15 @@ public class ThongKeGUI extends javax.swing.JFrame {
     private void radBtnNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radBtnNoneActionPerformed
         // TODO add your handling code here:
         PhuongAncbb.setSelectedIndex(0);
+        loadDataTable(getDate());
+        loadLabelSLThanhVien(getDate());
     }//GEN-LAST:event_radBtnNoneActionPerformed
 
     private void radBtnDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radBtnDateActionPerformed
         // TODO add your handling code here:
         PhuongAncbb.setSelectedIndex(0);
+        loadDataTable(getDate());
+        loadLabelSLThanhVien(getDate());
     }//GEN-LAST:event_radBtnDateActionPerformed
 
     private void btnExport1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExport1ActionPerformed
