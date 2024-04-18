@@ -35,7 +35,7 @@ public class ThongKeGUI extends javax.swing.JFrame {
     private int value=0;
     private String formattedDate="";
     private Timestamp timestamp;
-    private TitledBorder titledBorder, borderLabelSL, borderLabelClosest;
+    private TitledBorder titledBorder, titleBorderNganh,borderLabelSL, borderLabelClosest;
     private Calendar currentDate;
     private String[] jpanelCombobox;
     private DefaultComboBoxModel<String> model;
