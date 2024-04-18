@@ -163,7 +163,42 @@ public class ThongKeBUS {
         }
     }
     
+    public List<String> getAllTenThietBi() {
+        List<String> tenThietBiList = null;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+            tenThietBiList = new ThongKeDAO().getAllTenThietBi(session);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return tenThietBiList;
+    }
     
+    public List<Object[]> getAllTenThietBiByDate(String nameThietBi, String date) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+           
+        try {
+            session.beginTransaction();
+            List<Object[]> result = thongKeDAO.getAllTenThietBiByDate(session,nameThietBi,date);
+            session.getTransaction().commit();
+            return result;
+        } catch (Exception e) {
+            if (session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            session.close();
+        }
+    }
     
     public List<Object[]> getAllThietBiDuocMuonByDate( String date) {
         Session session = HibernateUtil.getSessionFactory().openSession();
