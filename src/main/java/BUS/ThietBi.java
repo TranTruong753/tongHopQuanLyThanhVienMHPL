@@ -13,12 +13,16 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table
+@Table(name="thietbi")
 public class ThietBi {
     @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int MaTB;
+    
     @Column
     private String TenTB;
+    
     @Column
     private String MoTaTB;
+    
 }

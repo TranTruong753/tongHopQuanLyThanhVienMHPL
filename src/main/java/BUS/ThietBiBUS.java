@@ -27,4 +27,26 @@ public class ThietBiBUS {
     public boolean checkMuon(int matb) {
         return thietBiDAO.checkMuon(matb);
     }
+    public List<ThietBi> getAllThietBi() {
+        return thietBiDAO.getAllThietBi();
+    }
+    public ThietBi layThietBiQuaID(int id) {
+        return thietBiDAO.layThietBiQuaID(id);
+    }
+    public boolean insertThietBi(int matb,String tentb, String mota) {
+        return thietBiDAO.insertThietBi(matb,tentb, mota);
+    }
+    public boolean updateThietBi(int matb,String tentb, String mota) {
+        return thietBiDAO.updateThietBi(matb,tentb, mota);
+    }
+    public boolean xoaThietBiTheoID(int id) {
+        return thietBiDAO.xoaThietBiTheoID(id);
+    }
+    public boolean themDS(){ 
+        return thietBiDAO.themDS();
+    }
+    
+     public boolean XoaThietBiTheoKiTuDau(String maDautb){ 
+        return thietBiDAO.XoaThietBiQuaMaDau(maDautb);
+    }
 }
