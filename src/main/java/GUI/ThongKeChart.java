@@ -5,6 +5,8 @@
 package GUI;
 
 import BUS.ThongKeBUS;
+import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneLightIJTheme;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,6 +16,7 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -38,9 +41,15 @@ public class ThongKeChart extends javax.swing.JDialog {
     
     public ThongKeChart(java.awt.Frame parent, boolean modal) {
         
+        
         super(parent, modal);
         
         initComponents();
+        try {
+            UIManager.setLookAndFeel(new FlatAtomOneLightIJTheme());
+        } catch (Exception ex) {
+            System.err.println("Failed to initialize LaF");
+        }
         
         
     }

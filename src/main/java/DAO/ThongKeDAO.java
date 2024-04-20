@@ -93,6 +93,32 @@ public class ThongKeDAO {
         query.setParameter("formattedDate", "%" + date + "%");
         return query.getResultList();
     }
+
+    public List<String> getAllTenThietBi(Session session) {
+        List<String> tenThietBiList = null;
+        try {
+            // Sử dụng tham số trong câu truy vấn HQL
+            String hql = "SELECT DISTINCT TenTB FROM ThietBi";
+            Query<String> query = session.createQuery(hql, String.class);
+            // Lấy danh sách các ngành
+            tenThietBiList = query.getResultList();
+        } catch (Exception e) {
+            
+        }
+        return tenThietBiList;
+    }
+    
+    public List<Object[]> getAllTenThietBiByDate(Session session, String nameThietBi, String date) {
+        String hql = "SELECT tb.MaTB, tb.TenTB, tb.MoTaTB, ttsd.TGMuon " +
+                     "FROM ThietBi tb " +
+                     "INNER JOIN ThongTinSD ttsd ON ttsd.MaTB = tb.MaTB " +
+                     "WHERE DATE_FORMAT(ttsd.TGMuon, '%Y-%m-%d') LIKE :formattedDate " +
+                     "AND tb.TenTB = :nameThietBi";
+        Query<Object[]> query = session.createQuery(hql); 
+        query.setParameter("formattedDate", "%" + date + "%");
+        query.setParameter("nameThietBi", nameThietBi); 
+        return query.getResultList();
+    }
     
     public List<Object[]> getAllThietBiDuocMuonByDate(Session session, String date) {
         String hql = "SELECT tb.MaTB, tb.TenTB, tb.MoTaTB,ttsd.TGMuon " +

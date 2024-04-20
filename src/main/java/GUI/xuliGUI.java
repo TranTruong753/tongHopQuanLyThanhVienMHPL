@@ -34,6 +34,7 @@ public class xuliGUI extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
+        setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
         pack();
     }
 

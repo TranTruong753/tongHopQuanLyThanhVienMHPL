@@ -35,7 +35,7 @@ public class ThongKeGUI extends javax.swing.JFrame {
     private int value=0;
     private String formattedDate="";
     private Timestamp timestamp;
-    private TitledBorder titledBorder, borderLabelSL, borderLabelClosest;
+    private TitledBorder titledBorder, titleBorderNganh,borderLabelSL, borderLabelClosest;
     private Calendar currentDate;
     private String[] jpanelCombobox;
     private DefaultComboBoxModel<String> model;
@@ -56,6 +56,7 @@ public class ThongKeGUI extends javax.swing.JFrame {
         currentDate = Calendar.getInstance();
         dateChoose.setDate(currentDate.getTime());
         titledBorder = (TitledBorder) All_JP.getBorder();
+        titleBorderNganh=(TitledBorder) Nganh_Jp.getBorder();
         borderLabelSL=(TitledBorder) JPanel_SL.getBorder();
         borderLabelClosest=(TitledBorder) JPanel_SLThietBi.getBorder();
         Nganh_Jp.setVisible(false);
@@ -573,6 +574,7 @@ public class ThongKeGUI extends javax.swing.JFrame {
     //Thay đổi combobox thành của thiết bị 
     private void loadDataThietBiJPanel(String value){
         JPanel_SLViPham.setVisible(false);
+        loadDataCboxTenThietBi();
         if (value.equals("Được mượn")){
             if (!"".equals(getDate())){
                 loadDataTbDuocMuonByDateTable(getDate());
@@ -673,7 +675,21 @@ public class ThongKeGUI extends javax.swing.JFrame {
         // Đặt model mới cho cboxKhoa
         cboxNganh.setModel(model);
     }
-    
+    private void loadDataCboxTenThietBi(){
+        dataCombobox = thongKeBUS.getAllTenThietBi();
+        // Tạo một DefaultComboBoxModel từ danh sách khoa
+        model = new DefaultComboBoxModel<>();
+
+        // Thêm các khoa vào model
+        if (dataCombobox != null) {
+            model.addElement("--Chọn tên thiết bị--");
+            for (String nganh : dataCombobox) {
+                model.addElement(nganh);
+            }
+        }
+        // Đặt model mới cho cboxKhoa
+        cboxNganh.setModel(model);
+    }
     //thêm các hàng dữ liệu vào bảng
     private void tableAddRow(List<Object[]> data){
         // Xóa dữ liệu cũ trong bảng
@@ -756,7 +772,12 @@ public class ThongKeGUI extends javax.swing.JFrame {
         data = thongKeBUS.getAllTvNganhByDate(nameKhoa,date);
         tableAddRow(data);
     }
-    
+    private void loadDataTenThietBiByDateTable(String nameThietBi, String date){
+        loadHeaderTable("thietbi");
+        tableModel.addColumn("Thời gian mượn");
+        data = thongKeBUS.getAllTenThietBiByDate(nameThietBi,date);
+        tableAddRow(data);
+    }
     //load dữ liệu thiết bị được mượn theo ngày vào bảng
     private void loadDataTbDuocMuonByDateTable(String date){
         loadHeaderTable("thietbi");
@@ -1319,11 +1340,15 @@ public class ThongKeGUI extends javax.swing.JFrame {
     private void radBtnMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radBtnMonthActionPerformed
         // TODO add your handling code here:
         PhuongAncbb.setSelectedIndex(0);
+        loadDataTable(getDate());
+        loadLabelSLThanhVien(getDate());
     }//GEN-LAST:event_radBtnMonthActionPerformed
 
     private void radBtnYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radBtnYearActionPerformed
         // TODO add your handling code here:
         PhuongAncbb.setSelectedIndex(0);
+        loadDataTable(getDate());
+        loadLabelSLThanhVien(getDate());
     }//GEN-LAST:event_radBtnYearActionPerformed
 
     private void dateChooseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateChooseMouseClicked
@@ -1340,6 +1365,7 @@ public class ThongKeGUI extends javax.swing.JFrame {
                 if ("--Chon Khoa--".equals(selectedValue)){
                     Nganh_Jp.setVisible(false);
                 }else{
+                    titleBorderNganh.setTitle("Ngành");
                     Nganh_Jp.setVisible(true);
                 }
                 
@@ -1347,13 +1373,22 @@ public class ThongKeGUI extends javax.swing.JFrame {
                 break;
                 
             case "Thiết Bị":
+                if("Được mượn".equals(selectedValue)&&!"".equals(getDate())){
+                    titleBorderNganh.setTitle("Tên thiết bị");
+                    Nganh_Jp.setVisible(true);
+                }
+                else{
+                    Nganh_Jp.setVisible(false);
+                }
                 loadDataThietBiJPanel(selectedValue);
                 break;
                 
             default:
                 loadDataViPhamJPanel(selectedValue); 
                 break;
-        }      
+        }  
+        Nganh_Jp.repaint();
+        Nganh_Jp.revalidate();
     }//GEN-LAST:event_cboxAllActionPerformed
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
@@ -1392,6 +1427,9 @@ public class ThongKeGUI extends javax.swing.JFrame {
                 loadDataCboxKhoa();                
                 break;
         }
+        // Cập nhật lại giao diện
+        All_JP.repaint();
+        All_JP.revalidate();
     }//GEN-LAST:event_PhuongAncbbActionPerformed
 
     private void PhuongAncbbPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_PhuongAncbbPropertyChange
@@ -1406,26 +1444,37 @@ public class ThongKeGUI extends javax.swing.JFrame {
     private void cboxNganhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxNganhActionPerformed
         // TODO add your handling code here:
         String selectedValue = (String) cboxNganh.getSelectedItem();
-        if (!"".equals(getDate())){
-            loadDataTvNganhByDateTable(selectedValue,getDate());
-            loadLabelSLThanhVienNganhByDate(selectedValue,getDate());
-            loadLabelClosestTVNganhByDate(selectedValue,getDate());
+        String panelName = titleBorderNganh.getTitle();
+        System.out.println(panelName);
+        if(panelName.equals("Ngành")){
+            if (!"".equals(getDate())){
+                loadDataTvNganhByDateTable(selectedValue,getDate());
+                loadLabelSLThanhVienNganhByDate(selectedValue,getDate());
+                loadLabelClosestTVNganhByDate(selectedValue,getDate());
+            }
+            else{
+                loadDataTvNganhTable(selectedValue);
+                loadLabelSLThanhVienNganh(selectedValue);
+                loadLabelClosestTVNganh(selectedValue);
+            }
         }
         else{
-            loadDataTvNganhTable(selectedValue);
-            loadLabelSLThanhVienNganh(selectedValue);
-            loadLabelClosestTVNganh(selectedValue);
+            loadDataTenThietBiByDateTable(selectedValue,getDate());
         }
     }//GEN-LAST:event_cboxNganhActionPerformed
 
     private void radBtnNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radBtnNoneActionPerformed
         // TODO add your handling code here:
         PhuongAncbb.setSelectedIndex(0);
+        loadDataTable(getDate());
+        loadLabelSLThanhVien(getDate());
     }//GEN-LAST:event_radBtnNoneActionPerformed
 
     private void radBtnDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radBtnDateActionPerformed
         // TODO add your handling code here:
         PhuongAncbb.setSelectedIndex(0);
+        loadDataTable(getDate());
+        loadLabelSLThanhVien(getDate());
     }//GEN-LAST:event_radBtnDateActionPerformed
 
     private void btnExport1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExport1ActionPerformed

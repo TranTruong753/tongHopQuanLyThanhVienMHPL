@@ -23,6 +23,7 @@ public class TrangChu extends javax.swing.JFrame {
             System.err.println("Failed to initialize LaF");
         }
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
