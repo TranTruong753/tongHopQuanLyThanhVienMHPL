@@ -4,6 +4,7 @@ package GUI;
 import BUS.ThongKeBUS;
 import com.formdev.flatlaf.intellijthemes.FlatDarkPurpleIJTheme;
 import java.awt.Color;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
@@ -21,6 +23,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import javax.swing.*;
 
 /**
  *
@@ -837,49 +840,57 @@ public class ThongKeGUI extends javax.swing.JFrame {
     }
     
     //Export data from table to excel
-    private void exportDataToExcel(){
-        String filePath = "/E:/";
-        String fileName = "ThongKe_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".xlsx";
-        String fullPath = filePath + fileName;
+    private void exportDataToExcel() {
+        JFileChooser fileChooser = new JFileChooser(); // Tạo một JFileChooser để chọn vị trí lưu
+        fileChooser.setDialogTitle("Chọn vị trí lưu"); // Đặt tiêu đề của hộp thoại
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); // Chỉ cho phép chọn thư mục
+    
+        int userSelection = fileChooser.showSaveDialog(this); // Hiển thị hộp thoại và chờ người dùng chọn
+    
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File selectedDirectory = fileChooser.getSelectedFile(); // Lấy thư mục mà người dùng đã chọn
+            String filePath = selectedDirectory.getAbsolutePath(); // Lấy đường dẫn tuyệt đối của thư mục
+        
+            String fileName = "ThongKe_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")) + ".xlsx";
+            String fullPath = filePath + File.separator + fileName;
 
-        try {
-            XSSFWorkbook workbook = new XSSFWorkbook();
-            XSSFSheet sheet = workbook.createSheet("Data");
-            // Add title row
-            XSSFRow titleRow = sheet.createRow(0);
-            XSSFCell titleCell = titleRow.createCell(0);
-            titleCell.setCellValue("DANH SÁCH THỐNG KÊ");
+            try {
+                XSSFWorkbook workbook = new XSSFWorkbook();
+                XSSFSheet sheet = workbook.createSheet("Data");
+                DefaultTableModel model = (DefaultTableModel) tblDanhSach.getModel();
+                int rowCount = model.getRowCount();
+                int columnCount = model.getColumnCount();
 
-            // Add export time row
-            XSSFRow exportTimeRow = sheet.createRow(1);
-            XSSFCell exportTimeCell = exportTimeRow.createCell(0);
-            exportTimeCell.setCellValue("Thời gian export: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-            // Get the table data
-            DefaultTableModel model = (DefaultTableModel) tblDanhSach.getModel();
-            int rowCount = model.getRowCount();
-            int columnCount = model.getColumnCount();
+                // Add title row
+                XSSFRow titleRow = sheet.createRow(0);
+                XSSFCell titleCell = titleRow.createCell(0);
+                titleCell.setCellValue("DANH SÁCH THỐNG KÊ");
 
-            // Create header row
-            XSSFRow headerRow = sheet.createRow(3);
-            for (int i = 0; i < columnCount; i++) {
-                XSSFCell cell = headerRow.createCell(i);
-                cell.setCellValue(model.getColumnName(i));
-            }
+                // Add export time row
+                XSSFRow exportTimeRow = sheet.createRow(1);
+                XSSFCell exportTimeCell = exportTimeRow.createCell(0);
+                exportTimeCell.setCellValue("Thời gian export: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
-            // Create data rows
+                // Create header row
+                XSSFRow headerRow = sheet.createRow(3);
+                for (int i = 0; i < columnCount; i++) {
+                    XSSFCell cell = headerRow.createCell(i);
+                    cell.setCellValue(model.getColumnName(i));
+                }
 
-            for (int i = 0; i < rowCount; i++) {
-                XSSFRow dataRow = sheet.createRow(i + 4); 
-                for (int j = 0; j < columnCount; j++) {
-                    XSSFCell cell = dataRow.createCell(j);
-                    Object value = model.getValueAt(i, j);
-                    if (value != null) {
-                        cell.setCellValue(value.toString());
-                    } else {
-                        cell.setCellValue("");
+                // Create data rows
+                for (int i = 0; i < rowCount; i++) {
+                    XSSFRow dataRow = sheet.createRow(i + 4);
+                    for (int j = 0; j < columnCount; j++) {
+                        XSSFCell cell = dataRow.createCell(j);
+                        Object value = model.getValueAt(i, j);
+                        if (value != null) {
+                            cell.setCellValue(value.toString());
+                        } else {
+                            cell.setCellValue("");
+                        }
                     }
                 }
-            }
 
             // Write the workbook to a file
             FileOutputStream fileOut = new FileOutputStream(fullPath);
@@ -887,8 +898,9 @@ public class ThongKeGUI extends javax.swing.JFrame {
             fileOut.close();
 
             JOptionPane.showMessageDialog(null, "Xuất file thống kê thành công. Đường dẫn: " + fullPath, "Export Success", JOptionPane.INFORMATION_MESSAGE);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Xuất file thống kê thất bại", "Export Error", JOptionPane.ERROR_MESSAGE);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Xuất file thống kê thất bại", "Export Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
     
