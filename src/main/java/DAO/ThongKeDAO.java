@@ -8,8 +8,9 @@ public class ThongKeDAO {
 
     public List<String> getTableHeaders(Session session, String tableName) {
         String hql = "SELECT COLUMN_NAME " +
-                     "FROM INFORMATION_SCHEMA.COLUMNS " +
-                     "WHERE TABLE_NAME = :tableName";
+        "FROM INFORMATION_SCHEMA.COLUMNS " +
+        "WHERE TABLE_NAME = :tableName " +
+        "AND COLUMN_NAME NOT IN ('Password', 'Email')";
         Query<String> query = session.createSQLQuery(hql);
         query.setParameter("tableName", tableName);
         return query.getResultList();

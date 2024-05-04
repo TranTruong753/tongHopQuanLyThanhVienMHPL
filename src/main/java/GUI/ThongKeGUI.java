@@ -749,6 +749,7 @@ public class ThongKeGUI extends javax.swing.JFrame {
     //load dữ liệu thành viên khoa vào bảng
     private void loadDataTvKhoaTable(String nameKhoa){
         loadHeaderTable("thanhvien");
+
         data = thongKeBUS.getAllThanhVienKhoa(nameKhoa);
         tableAddRow(data);
     }
